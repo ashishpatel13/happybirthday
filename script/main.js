@@ -1,14 +1,82 @@
+gsap.registerPlugin(Draggable, DrawSVGPlugin);
+
 // create floating hearts in the background
 const createHearts = () => {
     const container = document.querySelector('.heart-container');
     for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart';
+        // random horizontal start
         heart.style.left = Math.random() * 100 + 'vw';
+        // start at the bottom so hearts float up the screen
+        heart.style.top = '100vh';
+        // vary the size and speed for a more magical effect
+        const size = Math.random() * 15 + 10;
+        heart.style.setProperty('--size', size + 'px');
+        heart.style.animationDuration = Math.random() * 3 + 4 + 's';
         heart.style.animationDelay = Math.random() * 5 + 's';
         container.appendChild(heart);
     }
 }
+
+// burst of confetti to celebrate
+const launchConfetti = () => {
+    const duration = 2 * 1000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+        // launch confetti from both sides for a fuller effect
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    };
+
+    frame();
+};
+
+// firework show for extra wow
+const launchFireworks = () => {
+    const container = document.querySelector('.fireworks');
+    const fireworks = new Fireworks(container);
+    fireworks.start();
+    setTimeout(() => fireworks.stop(), 3000);
+};
+
+// draggable love notes
+const createNotes = () => {
+    const messages = ['You’re my sunshine','Forever yours','Best girlfriend ever'];
+    messages.forEach((msg) => {
+        const note = document.createElement('div');
+        note.className = 'love-note';
+        note.textContent = msg;
+        document.body.appendChild(note);
+        Draggable.create(note);
+    });
+};
+
+// scratch-off secret message
+const initScratch = () => {
+    if (typeof Scratch === 'undefined') return;
+    const sc = new Scratch('#scratch','#secret', {
+        radius: 15,
+        percentToFinish: 50,
+        onComplete: () => document.querySelector('#secret').style.visibility='visible'
+    });
+    sc.init();
+};
 
 // trigger to play music in the background with sweetalert
 window.addEventListener('load', () => {
@@ -25,10 +93,13 @@ window.addEventListener('load', () => {
             document.querySelector('.song').play();
             createHearts();
             animationTimeline();
+            launchConfetti();
         } else {
             createHearts();
             animationTimeline();
         }
+        createNotes();
+        initScratch();
     });
 });
 
@@ -269,6 +340,8 @@ const animationTimeline = () => {
         y: 30,
         zIndex: "-1",
     })
+    .from(".ten", 0.7, { opacity: 0, y: 10 })
+    .call(launchFireworks)
     .staggerFrom(".nine p", 1, ideaTextTrans, 1.2)
     .to(
         ".last-smile",
@@ -284,3 +357,7 @@ const animationTimeline = () => {
         tl.restart();
     });
 }
+
+document.getElementById('draw-btn').addEventListener('click', () => {
+    gsap.fromTo('#heart-path',{drawSVG:'0%'},{drawSVG:'100%',duration:2, ease:'power1.inOut'});
+});

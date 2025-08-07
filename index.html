@@ -23,6 +23,7 @@
         Your browser isn't invited for super fun audio time.
     </audio>
     <div class="heart-container"></div>
+    <div class="fireworks"></div>
 
     <div class="container">
         <div class="one">
@@ -71,6 +72,16 @@
                 <h3 class="wish-hbd">Happy Birthday!</h3>
                 <h5 id="wishText">May this be the best day of your life! ;)</h5>
             </div>
+            <div class="scratch-wrapper">
+                <canvas id="scratch" width="300" height="150">Cover me!</canvas>
+                <div id="secret" class="secret-text">You mean the world to me, Nelu 💖</div>
+            </div>
+        </div>
+
+        <div id="collage">
+            <div class="polaroid"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=300&h=300&q=80"><p>Us at the park</p></div>
+            <div class="polaroid"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=300&h=300&q=80"><p>Our first date</p></div>
+            <div class="polaroid"><img src="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=300&h=300&q=80"><p>Favorite selfie</p></div>
         </div>
 
         <div class="seven">
@@ -141,18 +152,41 @@
             </svg>
         </div>
 
-        <div class="nine">
-            <p>Okay, now come back and tell me if you liked it.</p>
-            <p id="replay">Or click, if you want to watch it again.</p>
-            <p class="last-smile">:)</p>
+        <div class="final-section">
+            <div class="ten">
+                <div class="cake">
+                    <div class="candle"></div>
+                    <div class="candle"></div>
+                    <div class="candle"></div>
+                </div>
+                <p class="final-message">Make a wish and enjoy your cake!</p>
+            </div>
+            <div class="nine">
+                <p>Okay, now come back and tell me if you liked it.</p>
+                <p id="replay">Or click, if you want to watch it again.</p>
+                <p class="last-smile">:)</p>
+            </div>
         </div>
+        <div id="notes-area"></div>
     </div>
+
+    <button id="draw-btn">Reveal my love</button>
+    <svg width="200" height="200">
+        <path id="heart-path" d="M10 30 A20 20 0 0 1 50 30 A20 20 0 0 1 90 30 Q90 60 50 90 Q10 60 10 30 Z" fill="none" stroke="#ff5e6c" stroke-width="2"/>
+    </svg>
 
 </body>
     <!-- Greensock -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <!-- Sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Confetti library for extra celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- Fireworks for an extra wow factor -->
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scratchcard-js@1.0.4/dist/scratchcard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/DrawSVGPlugin.min.js"></script>
     <script type="application/javascript" src="./script/main.js"></script>
 
 </html>
