@@ -10,8 +10,7 @@ const createHearts = () => {
         heart.style.top = '100vh';
         // vary the size and speed for a more magical effect
         const size = Math.random() * 15 + 10;
-        heart.style.width = size + 'px';
-        heart.style.height = size + 'px';
+        heart.style.setProperty('--size', size + 'px');
         heart.style.animationDuration = Math.random() * 3 + 4 + 's';
         heart.style.animationDelay = Math.random() * 5 + 's';
         container.appendChild(heart);
@@ -44,6 +43,14 @@ const launchConfetti = () => {
     };
 
     frame();
+};
+
+// firework show for extra wow
+const launchFireworks = () => {
+    const container = document.querySelector('.fireworks');
+    const fireworks = new Fireworks(container);
+    fireworks.start();
+    setTimeout(() => fireworks.stop(), 3000);
 };
 
 // trigger to play music in the background with sweetalert
@@ -306,6 +313,8 @@ const animationTimeline = () => {
         y: 30,
         zIndex: "-1",
     })
+    .from(".ten", 0.7, { opacity: 0, y: 10 })
+    .call(launchFireworks)
     .staggerFrom(".nine p", 1, ideaTextTrans, 1.2)
     .to(
         ".last-smile",
@@ -313,8 +322,7 @@ const animationTimeline = () => {
             rotation: 90,
         },
         "+=1"
-    )
-    .from(".ten", 0.7, { opacity: 0, y: 10 });
+    );
 
     // Restart Animation on click
     const replyBtn = document.getElementById("replay");
