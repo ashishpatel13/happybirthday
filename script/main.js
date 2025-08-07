@@ -10,6 +10,20 @@ const createHearts = () => {
     }
 }
 
+// create twinkling stars in the background
+const createStars = () => {
+    const container = document.querySelector('.stars');
+    if (!container) return;
+    for (let i = 0; i < 40; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(star);
+    }
+}
+
 // trigger to play music in the background with sweetalert
 window.addEventListener('load', () => {
     Swal.fire({
@@ -24,9 +38,11 @@ window.addEventListener('load', () => {
         if (result.isConfirmed) {
             document.querySelector('.song').play();
             createHearts();
+            createStars();
             animationTimeline();
         } else {
             createHearts();
+            createStars();
             animationTimeline();
         }
     });
@@ -66,6 +82,9 @@ const animationTimeline = () => {
 
     tl.to(".container", 0.6, {
         visibility: "visible"
+    })
+    .from(".stars", 1, {
+        opacity: 0
     })
     .from(".one", 0.7, {
         opacity: 0,
