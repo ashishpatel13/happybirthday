@@ -1,3 +1,15 @@
+// create floating hearts in the background
+const createHearts = () => {
+    const container = document.querySelector('.heart-container');
+    for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(heart);
+    }
+}
+
 // trigger to play music in the background with sweetalert
 window.addEventListener('load', () => {
     Swal.fire({
@@ -11,8 +23,10 @@ window.addEventListener('load', () => {
     }).then((result) => {
         if (result.isConfirmed) {
             document.querySelector('.song').play();
+            createHearts();
             animationTimeline();
         } else {
+            createHearts();
             animationTimeline();
         }
     });
