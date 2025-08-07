@@ -241,11 +241,12 @@ body {
 
 .heart {
   position: absolute;
+  top: 100vh;
   width: 20px;
   height: 20px;
   background: #ff6b81;
   transform: rotate(45deg);
-  animation: float 6s ease-in infinite;
+  animation: float 6s linear infinite;
 }
 
 .heart:before,
@@ -274,9 +275,55 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translateY(-100vh) rotate(45deg) scale(1.2);
+    transform: translateY(-110vh) rotate(45deg) scale(1.2);
     opacity: 0;
   }
+}
+
+/* Cute birthday cake section */
+.ten {
+  font-size: 2rem;
+}
+
+.cake {
+  width: 200px;
+  height: 100px;
+  margin: 0 auto;
+  background: #fff0f0;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 2px 0 #eeb, 0 4px 0 #e69;
+}
+
+.candle {
+  width: 10px;
+  height: 40px;
+  background: #ff9aa2;
+  position: absolute;
+  top: -40px;
+  border-radius: 5px 5px 0 0;
+}
+
+.candle:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 6px;
+  height: 10px;
+  transform: translateX(-50%);
+  background: #ffd700;
+  border-radius: 3px 3px 0 0;
+  animation: flicker 0.6s infinite alternate;
+}
+
+.candle:nth-child(1) { left: 40px; }
+.candle:nth-child(2) { left: 95px; }
+.candle:nth-child(3) { left: 150px; }
+
+@keyframes flicker {
+  from { opacity: 0.9; transform: translateX(-50%) scaleY(1); }
+  to { opacity: 1; transform: translateX(-50%) scaleY(1.3); }
 }
 
 /* Media Queries */

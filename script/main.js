@@ -4,11 +4,47 @@ const createHearts = () => {
     for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart';
+        // random horizontal start
         heart.style.left = Math.random() * 100 + 'vw';
+        // start at the bottom so hearts float up the screen
+        heart.style.top = '100vh';
+        // vary the size and speed for a more magical effect
+        const size = Math.random() * 15 + 10;
+        heart.style.width = size + 'px';
+        heart.style.height = size + 'px';
+        heart.style.animationDuration = Math.random() * 3 + 4 + 's';
         heart.style.animationDelay = Math.random() * 5 + 's';
         container.appendChild(heart);
     }
 }
+
+// burst of confetti to celebrate
+const launchConfetti = () => {
+    const duration = 2 * 1000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+        // launch confetti from both sides for a fuller effect
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    };
+
+    frame();
+};
 
 // trigger to play music in the background with sweetalert
 window.addEventListener('load', () => {
@@ -25,6 +61,7 @@ window.addEventListener('load', () => {
             document.querySelector('.song').play();
             createHearts();
             animationTimeline();
+            launchConfetti();
         } else {
             createHearts();
             animationTimeline();
@@ -276,7 +313,8 @@ const animationTimeline = () => {
             rotation: 90,
         },
         "+=1"
-    );
+    )
+    .from(".ten", 0.7, { opacity: 0, y: 10 });
 
     // Restart Animation on click
     const replyBtn = document.getElementById("replay");
